@@ -10,51 +10,56 @@
 }
 
 .product-badge {
-    &.status-instock {
+    &.status-ready {
+        background: #B3E5FC;
+        color: #23547B;
+    }
+
+    &.status-reviewed {
         background: #C8E6C9;
         color: #256029;
     }
 
-    &.status-outofstock {
+    &.status-rejected {
         background: #FFCDD2;
         color: #C63737;
     }
 
-    &.status-lowstock {
+    &.status-onprocess {
         background: #FEEDAF;
         color: #8A5340;
     }
 }
 
 .customer-badge {
-    &.status-qualified {
-        background: #C8E6C9;
-        color: #256029;
-    }
-
-    &.status-unqualified {
-        background: #FFCDD2;
-        color: #C63737;
-    }
-
-    &.status-negotiation {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
-
-    &.status-new {
+    &.status-ready {
         background: #B3E5FC;
         color: #23547B;
     }
 
-    &.status-renewal {
-        background: #ECCFFF;
-        color: #694382;
+    &.status-reviewed {
+        background: #C8E6C9;
+        color: #256029;
     }
 
-    &.status-proposal {
-        background: #FFD8B2;
-        color: #805B36;
+    &.status-rejected {
+        background: #FFCDD2;
+        color: #C63737;
+    }
+
+    &.status-onprocess {
+        background: #FEEDAF;
+        color: #8A5340;
+    }
+
+    &.status-onsendingemail {
+        background: #FFF9C4;
+        color: #8A5340;
+    }
+
+    &.status-sent {
+        background: #C8E6C9;
+        color: #256029;
     }
 }
 

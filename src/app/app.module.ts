@@ -6,8 +6,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppTopbarComponent } from './layouts/app.topbar/app.topbar.component';
-import { AppFooterComponent } from './layouts/app.footer/app.footer.component';
+import { AppTopBarComponent } from './layouts/app.topbar.component';
+import { AppFooterComponent } from './layouts/app.footer.component';
+import { AppLayoutModule } from './layouts/app.layout.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,7 @@ import { AppFooterComponent } from './layouts/app.footer/app.footer.component';
     CommonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppFooterComponent,
-    AppTopbarComponent,
+    AppLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

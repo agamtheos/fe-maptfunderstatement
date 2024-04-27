@@ -8,6 +8,8 @@ import { catchError, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { IResponse } from 'src/app/interfaces/i-response';
+import { Router } from '@angular/router';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,8 @@ export class LoginComponent {
   constructor(
     private layoutService: LayoutService,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
     ) {
       this.error = {
         status: false,
@@ -38,7 +41,6 @@ export class LoginComponent {
     }
 
   onSubmit() {
-    console.log('here')
     if (this.loginForm.valid) {
       this.user = {
         username: this.loginForm.get('username')?.value as string,
@@ -51,16 +53,21 @@ export class LoginComponent {
           message: error.error.message,
           timestamp: error.error.timestamp
         }
-        
+        console.log(error.error.error.message)
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: this.error.message
+          text: error.error.error.message
         })
         return throwError(() => new Error('Error login'))
       }))
       .subscribe((response: IResponse) => {
         this.authService.setAuth(response.data.token);
+        const menu: string = JSON.stringify(response.data.menu);
+        const role: string = JSON.stringify(response.data.role)
+        this.authService.setMenuLocal(menu);
+        this.authService.setRoleLocal(role);
+        this.router.navigate(['/main/batch-fs']);
         Swal.fire({
           icon: 'success',
           title: 'Success',

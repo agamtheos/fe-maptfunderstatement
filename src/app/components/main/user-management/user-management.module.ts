@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ListBatchFsRoutingModule } from './list-batch-routing.module';
-import { ListBatchFsComponent } from './list-batch-fs.component';
+import { ListFileFsRoutingModule } from './user-management-routing.module';
+import { UserManagementFsComponent } from './user-management-fs.component';
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -22,7 +22,7 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 @NgModule({
     imports: [
         CommonModule,
-        ListBatchFsRoutingModule,
+        ListFileFsRoutingModule,
         TableModule,
         FileUploadModule,
         FormsModule,
@@ -40,6 +40,6 @@ import { AutoCompleteModule } from "primeng/autocomplete";
         ListboxModule,
         AutoCompleteModule
     ],
-    declarations: [ListBatchFsComponent]
+    declarations: [UserManagementFsComponent]
 })
-export class ListBatchFsModule { }
+export class UserManagementModule { }

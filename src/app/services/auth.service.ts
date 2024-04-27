@@ -6,18 +6,26 @@ import { Router } from '@angular/router';
 
 import { ISignin } from '../interfaces/i-signin';
 import { IResponse } from '../interfaces/i-response';
+import { UtilService } from './util.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   isLoggedIn: boolean = false;
-  baseUrl = environment.apiBaseUrl;
+  baseUrl = environment.apiBaseUrl + '/api';
   keyToken: string = 'token';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private utilService: UtilService
+    ) { }
 
   signIn(user: ISignin): Observable<IResponse> {
+    this.utilService.removeLocalStorageItem(this.keyToken);
+    this.utilService.removeLocalStorageItem('menu');
+    this.utilService.removeLocalStorageItem('role');
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -26,26 +34,70 @@ export class AuthService {
     return this.http.post<IResponse>(`${this.baseUrl}/auth/v1/login`, body, { headers });
   }
 
+  signOut(): Observable<IResponse> {
+    const token = this.utilService.getLocalStorageItem(this.keyToken);
+    this.utilService.removeLocalStorageItem(this.keyToken);
+    this.utilService.removeLocalStorageItem('menu');
+    this.utilService.removeLocalStorageItem('role');
+    this.isLoggedIn = false;
+    this.router.navigate(['/auth/login']);
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+    return this.http.post<IResponse>(`${this.baseUrl}/auth/v1/logout`, null, { headers });
+  }
+
   setAuth(token: string) {
-    localStorage.setItem(this.keyToken, token);
+    this.utilService.setLocalStorageItem(this.keyToken, token)
     this.isLoggedIn = true;
   }
 
+  setMenuLocal(menu: any) {
+    this.utilService.setLocalStorageItem('menu', menu);
+  }
+
+  setRoleLocal(role: any) {
+    this.utilService.setLocalStorageItem('role', role);
+  
+  }
+
   isAuth(): boolean {
-    if (localStorage.getItem(this.keyToken)) {
+    const token = this.utilService.getLocalStorageItem(this.keyToken);
+    if (token) {
+      this.getValidateToken().subscribe(
+        res => {
+          if (res.status === 401) {
+            this.utilService.removeLocalStorageItem(this.keyToken);
+            this.utilService.removeLocalStorageItem('menu');
+            this.utilService.removeLocalStorageItem('role');
+            this.router.navigate(['/auth/login']);
+          }
+        },
+        err => {
+          this.utilService.removeLocalStorageItem(this.keyToken);
+          this.utilService.removeLocalStorageItem('menu');
+          this.utilService.removeLocalStorageItem('role');
+          this.router.navigate(['/auth/login']);
+        }
+      );
+
       this.isLoggedIn = true;
-      return this.isLoggedIn;
+      return true;
     }
     return false;
   }
 
-  getToken(): string {
-    return localStorage.getItem(this.keyToken) || '';
-  }
-
-  logout() {
-    localStorage.removeItem(this.keyToken);
-    this.isLoggedIn = false;
-    this.router.navigate(['/auth/login']);
+  getValidateToken(): Observable<IResponse> {
+    const token = this.utilService.getLocalStorageItem(this.keyToken);
+    if (!token) {
+      this.router.navigate(['/auth/login']);
+    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+    return this.http.get<IResponse>(`${this.baseUrl}/auth/v1/validate`, { headers });
   }
 }
