@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {ListFileFsRoutingModule} from './user-management-routing.module';
+import {RoleManagementRoutingModule} from './role-management-routing.module';
 import {TableModule} from 'primeng/table';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ButtonModule} from 'primeng/button';
@@ -17,12 +17,13 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
 import {AutoCompleteModule} from "primeng/autocomplete";
-import {UserManagementFsComponent} from "./user-management-fs.component";
+import {RoleManagementFsComponent} from "./role-management-fs.component";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
   imports: [
     CommonModule,
-    ListFileFsRoutingModule,
+    RoleManagementRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -38,9 +39,10 @@ import {UserManagementFsComponent} from "./user-management-fs.component";
     InputNumberModule,
     DialogModule,
     ListboxModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    MultiSelectModule
   ],
-  declarations: [UserManagementFsComponent]
+  declarations: [RoleManagementFsComponent]
 })
-export class UserManagementModule {
+export class RoleManagementModule {
 }

@@ -1,8 +1,4 @@
 <div class="grid">
-  <div class="my-2">
-    <button pButton pRipple label="Kembali" icon="pi pi-arrow-left" class="p-button-secondary mr-2 ml-4"
-            (click)="onBackButton()"></button>
-  </div>
   <div class="col-12">
     <div class="card px-6 py-6">
       <h4>List User</h4>
@@ -74,11 +70,11 @@
             <th pSortableColumn="lastAccess">Akses Terakhir
               <p-sortIcon field="lastAccess"></p-sortIcon>
             </th>
-            <th pSortableColumn="createdAt">Tanggal Dibuat
-              <p-sortIcon field="createdAt"></p-sortIcon>
-            </th>
             <th pSortableColumn="createdBy">Dibuat Oleh
               <p-sortIcon field="createdBy"></p-sortIcon>
+            </th>
+            <th pSortableColumn="createdAt">Tanggal Dibuat
+              <p-sortIcon field="createdAt"></p-sortIcon>
             </th>
             <th></th>
           </tr>
@@ -100,13 +96,9 @@
             <td style="width:14%; min-width:6rem;"><span class="p-column-title">Sedang Login</span>
               {{ user.isLogin === 1 ? 'Ya' : 'Tidak' }}
             </td>
-            <td *ngIf="user.ipLogin == null || user.ipLogin == ''" style="width:14%; min-width:10rem;"><span
+            <td style="width:14%; min-width:10rem;"><span
               class="p-column-title">IP Login</span>
-              -
-            </td>
-            <td *ngIf="user.ipLogin != null || user.ipLogin != ''" style="width:14%; min-width:10rem;"><span
-              class="p-column-title">IP Login</span>
-              {{ user.ipLogin }}
+              {{ user.ipLogin == "" ? '-' : user.ipLogin }}
             </td>
             <td style="width:14%; min-width:10rem;"><span class="p-column-title">Akses Terakhir</span>
               {{ user.lastAccess | date: 'dd-MM-yyyy HH:mm' }}

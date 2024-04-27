@@ -1,0 +1,161 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6 div-main">
+      <h4>List Menu</h4>
+      <p-toast></p-toast>
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
+                    (click)="deleteConfirmDialog()"
+                    [disabled]="multipleDeleteIds.length === 0 || !multipleDeleteIds"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Tambah Menu" icon="pi pi-plus" class="p-button-success"
+                  (click)="registerMenu(menu)"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt
+               [value]="menus"
+               [lazy]="true"
+               [sortField]="sortField"
+               (onLazyLoad)="loadMenus($event)"
+               (selectionChange)="onSelectionChange($event)"
+               [totalRecords]="totalMenus"
+               (onRowSelect)="onRowSelected($event)"
+               [loading]="loading"
+               [columns]="cols"
+               responsiveLayout="scroll"
+               [rowsPerPageOptions]="rowPerPageOptions"
+               [rows]="10"
+               [globalFilterFields]="['menuName']"
+               [paginator]="true"
+               [showCurrentPageReport]="true"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               selectionMode="multiple"
+               [rowHover]="true"
+               dataKey="menuId">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Table Menu</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)"
+                                   placeholder="Cari Nama Menu" class="w-full sm:w-auto"/>
+                        </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr class="header-table">
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="menuName">Nama Menu
+              <p-sortIcon field="menuName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="createdBy">Dibuat Oleh
+              <p-sortIcon field="createdBy"></p-sortIcon>
+            </th>
+            <th pSortableColumn="createdAt">Tanggal Dibuat
+              <p-sortIcon field="createdAt"></p-sortIcon>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-menu>
+          <tr class="data-tr">
+            <td>
+              <p-tableCheckbox [value]="menu"></p-tableCheckbox>
+            </td>
+            <td style="width:14%; min-width:15rem;"><span class="p-column-title">Nama Menu</span>
+              {{ menu.menuName }}
+            </td>
+            <td style="width:14%; min-width: 15rem;text-align:center;">
+              <span class="p-column-title" style="text-align:center;">Dibuat Oleh</span>
+              {{ menu.createdBy }}
+            </td>
+            <td style="width:14%; min-width: 20rem;text-align:center;">
+              <span class="p-column-title" style="text-align:center;">Tanggal Dibuat</span>
+              {{ menu.createdAt | date: 'dd-MM-yyyy HH:mm' }}
+            </td>
+            <td>
+              <div class="flex" style="justify-content: center;">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                        (click)="editMenu(menu)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                        (click)="deleteMenu(menu)"></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog [(visible)]="registerMenuDialog" [style]="{width: '450px'}" header="Tambah Menu baru"
+              [modal]="true"
+              [closable]="false"
+              class="p-fluid">
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="menuName">Nama Menu</label>
+          <input type="text" pInputText id="menuName" [(ngModel)]="menu.menuName" required autofocus
+                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !menu.menuName}"/>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !menu.menuName">Nama Menu is required.</small>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideRegisterDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveRegister()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="editMenuDialog" [style]="{width: '450px'}" header="Edit Menu"
+              [modal]="true"
+              [closable]="false"
+              class="p-fluid">
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="menuName2">Nama Menu</label>
+          <input type="text" pInputText id="menuName2" [(ngModel)]="menu.menuName" required autofocus
+                 [ngClass]="{'ng-invalid ng-dirty' : submitted && !menu.menuName}"/>
+          <small class="ng-dirty ng-invalid" *ngIf="submitted && !menu.menuName">Nama Menu is required.</small>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                (click)="hideEditDialog()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveEdit()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteMenuDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="menu">Apakah Anda yakin akan menghapus user <b>{{ menu.menuName }}</b>?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                (click)="deleteMenuDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
+      </ng-template>
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteMenusDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span>Apakah Anda yakin akan menghapus user yang dipilih?</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No"
+                (click)="deleteMenusDialog = false"></button>
+        <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes"
+                (click)="deleteSelectedFiles()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

@@ -5,14 +5,13 @@ import {environment} from 'src/environments/environment';
 import {Router} from '@angular/router';
 import {UtilService} from "./util.service";
 import {IResponse} from "../interfaces/i-response";
-import {IRole} from "../interfaces/i-role";
 import {IMenu} from "../interfaces/i-menu";
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class RoleService {
+export class MenuService {
 
   baseUrl = environment.apiBaseUrl + '/api';
 
@@ -23,7 +22,7 @@ export class RoleService {
   ) {
   }
 
-  getListRole(
+  getListMenu(
     page: number,
     sort: string,
     sortBy: string,
@@ -37,7 +36,7 @@ export class RoleService {
       'Authorization': 'Bearer ' + token
     };
 
-    let url = `${this.baseUrl}/v1/role/${page}/${sort}/${sortBy}`;
+    let url = `${this.baseUrl}/v1/menu/${page}/${sort}/${sortBy}`;
 
     if (size) {
       url += `?size=${size}`;
@@ -50,16 +49,6 @@ export class RoleService {
     return this.http.get<IResponse>(url, {headers});
   }
 
-  deleteById(id: number): Observable<IResponse> {
-    const token = this.utilService.getLocalStorageItem('token');
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
-    };
-
-    return this.http.delete<IResponse>(`${this.baseUrl}/v1/role/${id}`, {headers});
-  }
-
   multipleDelete(ids: string): Observable<IResponse> {
     const token = this.utilService.getLocalStorageItem('token');
     const headers = {
@@ -67,38 +56,38 @@ export class RoleService {
       'Authorization': 'Bearer ' + token
     };
 
-    return this.http.get<IResponse>(`${this.baseUrl}/v1/role/multiple-delete/${ids}`, {headers});
+    return this.http.get<IResponse>(`${this.baseUrl}/v1/menu/multiple-delete/${ids}`, {headers});
   }
 
-  updateRole(roleId: number, role: IRole, menus: IMenu[]): Observable<IResponse> {
+  registerMenu(menu: IMenu): Observable<IResponse> {
     const token = this.utilService.getLocalStorageItem('token');
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     };
 
-    const data = {
-      roleName: role.roleName,
-      menuModel: menus
-    }
-
-    let url = `${this.baseUrl}/v1/role/${roleId}`;
-
-    return this.http.put<IResponse>(url, data, {headers});
+    return this.http.post<IResponse>(`${this.baseUrl}/v1/menu`, menu, {headers});
   }
 
-  registerRole(role: IRole, menu: IMenu[]): Observable<IResponse> {
+  deleteById(menuId: number): Observable<IResponse> {
     const token = this.utilService.getLocalStorageItem('token');
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token
     };
 
-    const data = {
-      roleName: role.roleName,
-      menuModel: menu
-    }
+    return this.http.delete<IResponse>(`${this.baseUrl}/v1/menu/${menuId}`, {headers});
+  }
 
-    return this.http.post<IResponse>(`${this.baseUrl}/v1/role`, data, {headers});
+  updateMenu(menuId: number, menu: IMenu): Observable<IResponse> {
+    const token = this.utilService.getLocalStorageItem('token');
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    };
+
+    let url = `${this.baseUrl}/v1/menu/${menuId}`;
+
+    return this.http.put<IResponse>(url, menu, {headers});
   }
 }

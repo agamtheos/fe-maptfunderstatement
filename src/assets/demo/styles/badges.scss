@@ -1,86 +1,91 @@
 .customer-badge,
 .product-badge,
 .order-badge {
-    border-radius: var(--border-radius);
-    padding: .25em .5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: .3px;
+  border-radius: var(--border-radius);
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
 }
 
 .product-badge {
-    &.status-ready {
-        background: #B3E5FC;
-        color: #23547B;
-    }
+  &.status-ready {
+    background: #B3E5FC;
+    color: #23547B;
+  }
 
-    &.status-reviewed {
-        background: #C8E6C9;
-        color: #256029;
-    }
+  &.status-reviewed {
+    background: #C8E6C9;
+    color: #256029;
+  }
 
-    &.status-rejected {
-        background: #FFCDD2;
-        color: #C63737;
-    }
+  &.status-rejected {
+    background: #FFCDD2;
+    color: #C63737;
+  }
 
-    &.status-onprocess {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
+  &.status-onprocess {
+    background: #FEEDAF;
+    color: #8A5340;
+  }
 }
 
 .customer-badge {
-    &.status-ready {
-        background: #B3E5FC;
-        color: #23547B;
-    }
+  &.status-ready {
+    background: #B3E5FC;
+    color: #23547B;
+  }
 
-    &.status-reviewed {
-        background: #C8E6C9;
-        color: #256029;
-    }
+  &.status-reviewed {
+    background: #C8E6C9;
+    color: #256029;
+  }
 
-    &.status-rejected {
-        background: #FFCDD2;
-        color: #C63737;
-    }
+  &.status-rejected {
+    background: #FFCDD2;
+    color: #C63737;
+  }
 
-    &.status-onprocess {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
+  &.status-onprocess {
+    background: #FEEDAF;
+    color: #8A5340;
+  }
 
-    &.status-onsendingemail {
-        background: #FFF9C4;
-        color: #8A5340;
-    }
+  &.status-onsendingemail {
+    background: #FFF9C4;
+    color: #8A5340;
+  }
 
-    &.status-sent {
-        background: #C8E6C9;
-        color: #256029;
-    }
+  &.status-blacklisted {
+    background: #FFCDD2;
+    color: #C63737;
+  }
+
+  &.status-sent {
+    background: #C8E6C9;
+    color: #256029;
+  }
 }
 
 .order-badge {
-    &.order-delivered {
-        background: #C8E6C9;
-        color: #256029;
-    }
+  &.order-delivered {
+    background: #C8E6C9;
+    color: #256029;
+  }
 
-    &.order-cancelled {
-        background: #FFCDD2;
-        color: #C63737;
-    }
+  &.order-cancelled {
+    background: #FFCDD2;
+    color: #C63737;
+  }
 
-    &.order-pending {
-        background: #FEEDAF;
-        color: #8A5340;
-    }
+  &.order-pending {
+    background: #FEEDAF;
+    color: #8A5340;
+  }
 
-    &.order-returned {
-        background: #ECCFFF;
-        color: #694382;
-    }
+  &.order-returned {
+    background: #ECCFFF;
+    color: #694382;
+  }
 }

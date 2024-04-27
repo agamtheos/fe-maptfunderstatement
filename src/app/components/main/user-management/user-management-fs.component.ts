@@ -3,8 +3,6 @@ import {Component} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MessageService} from 'primeng/api';
 import {Table} from 'primeng/table';
-
-import {IListFileFs} from 'src/app/interfaces/i-list-file-fs';
 import {IUser} from "../../../interfaces/i-user";
 import {UserService} from "../../../services/user.service";
 import {RoleService} from "../../../services/role.service";
@@ -164,9 +162,9 @@ export class UserManagementFsComponent {
     this.registerUserDialog = true;
   }
 
-  deleteFile(file: IListFileFs) {
+  deleteFile(user: IUser) {
     this.deleteUserDialog = true;
-    this.user = {...file};
+    this.user = {...user};
   }
 
   editUser(user: IUser) {

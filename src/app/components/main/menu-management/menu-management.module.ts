@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {ListFileFsRoutingModule} from './user-management-routing.module';
+import {MenuManagementRoutingModule} from './menu-management-routing.module';
 import {TableModule} from 'primeng/table';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ButtonModule} from 'primeng/button';
@@ -17,12 +17,12 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {DialogModule} from 'primeng/dialog';
 import {ListboxModule} from 'primeng/listbox';
 import {AutoCompleteModule} from "primeng/autocomplete";
-import {UserManagementFsComponent} from "./user-management-fs.component";
+import {MenuManagementFsComponent} from "./menu-management-fs.component";
 
 @NgModule({
   imports: [
     CommonModule,
-    ListFileFsRoutingModule,
+    MenuManagementRoutingModule,
     TableModule,
     FileUploadModule,
     FormsModule,
@@ -40,7 +40,7 @@ import {UserManagementFsComponent} from "./user-management-fs.component";
     ListboxModule,
     AutoCompleteModule
   ],
-  declarations: [UserManagementFsComponent]
+  declarations: [MenuManagementFsComponent]
 })
-export class UserManagementModule {
+export class MenuManagementModule {
 }
