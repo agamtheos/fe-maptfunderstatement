@@ -66,7 +66,7 @@ export class UserManagementFsComponent {
       {field: 'createdAt', header: 'Dibuat Pada'}
     ];
 
-    this.roleService.getListRole(0, 'asc', 'id', 100)
+    this.roleService.getListRole(0, 'asc', 'roleId', 100)
       .subscribe(
         (response) => {
           this.roles = [
@@ -225,7 +225,7 @@ export class UserManagementFsComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Successful',
-            detail: 'Sukses menambahkan File!',
+            detail: 'Sukses menambahkan User!',
             life: 3000
           });
           this.loadFiles()

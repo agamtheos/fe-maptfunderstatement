@@ -17,11 +17,11 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt 
-            [value]="batchs" 
-            [lazy]="true" 
+            <p-table #dt
+            [value]="batchs"
+            [lazy]="true"
             [sortField]="sortField"
-            (onLazyLoad)="loadBatchs($event)" 
+            (onLazyLoad)="loadBatchs($event)"
             (selectionChange)="onSelectionChange($event)"
             [totalRecords]="totalBatchs"
             (onRowSelect)="onRowSelected($event)"
@@ -30,23 +30,27 @@
             responsiveLayout="scroll"
             [rowsPerPageOptions]="rowPerPageOptions"
             [rows]="10"
-            [globalFilterFields]="['batchName']" 
-            [paginator]="true"  
-            [showCurrentPageReport]="true" 
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
-            selectionMode="multiple" 
-            [rowHover]="true" 
+            [globalFilterFields]="['batchName']"
+            [paginator]="true"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            selectionMode="multiple"
+            [rowHover]="true"
             dataKey="funderStatementBatchId">
-                <ng-template pTemplate="caption">
-                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                        <h5 class="m-0">Funder Statement Batch</h5>
-                        <span class="block mt-2 md:mt-0 p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Cari Nama Batch"  class="w-full sm:w-auto"/>
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
+              <ng-template pTemplate="caption">
+                <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-right">
+                  <h5 class="m-0">Funder Statement Batch</h5>
+                  <div class="flex">
+                    <button pButton type="button" icon="pi pi-sync" class="p-button-secondary mr-2" (click)="loadBatchs()"></button>
+                  <span class="block mt-2 md:mt-0 p-input-icon-left">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Cari Nama Batch" class="w-full sm:w-auto" />
+                  </span>
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template pTemplate="header">
                     <tr class="center-table">
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
@@ -124,7 +128,7 @@
                     <p-fileUpload mode="advanced" accept=".xlsx" [maxFileSize]="maxFileSize" cancelLabel="Hapus" (onRemove)="onUnselectedFile($event)" [showCancelButton]="true" [showUploadButton]="false" (onSelect)="onGetFile($event)" chooseLabel="Pilih File"></p-fileUpload>
                     <label style="margin-top: 5px;margin-left: 5px" for="status">Hanya dapat upload file .xlsx</label>
                 </div>
-            </ng-template>  
+            </ng-template>
 
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>

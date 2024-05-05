@@ -183,7 +183,7 @@ export class ListBatchFsComponent {
             this.batchs = response.data.content;
           }
         )
-    }, 1000);
+    }, 2000);
   }
 
   onSelectedTemplate(event: any) {
